@@ -1,4 +1,4 @@
+node_modules/
 .env
-node_modules
-bin
-audios/message_*
+.DS_Store
+*.log
