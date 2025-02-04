@@ -1,14 +1,14 @@
 {
-  "name": "r3f-virtual-girlfriend-backend",
+  "name": "chatbot-zoe-backend",
   "version": "1.0.0",
-  "description": "Backend for the virtual girlfriend app",
+  "description": "Chatbot-Zoe-Backend",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js --ext js"
   },
-  "author": "Wawa SENSEI <contact@wawasensei.dev>",
+  "author": "Zanjeel <zanjeel123@gmail.com>",
   "dependencies": {
     "@aws-sdk/client-polly": "^3.738.0",
     "@google/generative-ai": "^0.21.0",
