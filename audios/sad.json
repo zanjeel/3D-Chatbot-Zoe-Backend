@@ -1,0 +1,40 @@
+{
+  "metadata": {
+    "soundFile": "C:\\Users\\zanje\\Desktop\\r3f-virtual-girlfriend-backend-main\\audios\\sad.wav",
+    "duration": 4.36
+  },
+  "mouthCues": [
+    { "start": 0.00, "end": 0.12, "value": "X" },
+    { "start": 0.12, "end": 0.19, "value": "B" },
+    { "start": 0.19, "end": 0.25, "value": "C" },
+    { "start": 0.25, "end": 0.32, "value": "E" },
+    { "start": 0.32, "end": 0.39, "value": "B" },
+    { "start": 0.39, "end": 0.74, "value": "C" },
+    { "start": 0.74, "end": 0.95, "value": "B" },
+    { "start": 0.95, "end": 1.02, "value": "E" },
+    { "start": 1.02, "end": 1.09, "value": "B" },
+    { "start": 1.09, "end": 1.17, "value": "A" },
+    { "start": 1.17, "end": 1.37, "value": "B" },
+    { "start": 1.37, "end": 1.49, "value": "A" },
+    { "start": 1.49, "end": 1.66, "value": "B" },
+    { "start": 1.66, "end": 2.20, "value": "X" },
+    { "start": 2.20, "end": 2.24, "value": "B" },
+    { "start": 2.24, "end": 2.28, "value": "F" },
+    { "start": 2.28, "end": 2.42, "value": "B" },
+    { "start": 2.42, "end": 2.56, "value": "C" },
+    { "start": 2.56, "end": 2.70, "value": "B" },
+    { "start": 2.70, "end": 2.84, "value": "G" },
+    { "start": 2.84, "end": 2.91, "value": "B" },
+    { "start": 2.91, "end": 3.05, "value": "F" },
+    { "start": 3.05, "end": 3.19, "value": "C" },
+    { "start": 3.19, "end": 3.30, "value": "A" },
+    { "start": 3.30, "end": 3.47, "value": "B" },
+    { "start": 3.47, "end": 3.54, "value": "D" },
+    { "start": 3.54, "end": 3.68, "value": "B" },
+    { "start": 3.68, "end": 3.76, "value": "A" },
+    { "start": 3.76, "end": 3.92, "value": "B" },
+    { "start": 3.92, "end": 4.13, "value": "C" },
+    { "start": 4.13, "end": 4.20, "value": "B" },
+    { "start": 4.20, "end": 4.36, "value": "X" }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "soundFile": "C:\\Users\\zanje\\Desktop\\r3f-virtual-girlfriend-backend-main\\audios\\introduction.wav",
+    "duration": 2.78
+  },
+  "mouthCues": [
+    { "start": 0.00, "end": 0.13, "value": "X" },
+    { "start": 0.13, "end": 0.19, "value": "B" },
+    { "start": 0.19, "end": 0.73, "value": "C" },
+    { "start": 0.73, "end": 0.87, "value": "B" },
+    { "start": 0.87, "end": 1.01, "value": "C" },
+    { "start": 1.01, "end": 1.09, "value": "A" },
+    { "start": 1.09, "end": 1.32, "value": "E" },
+    { "start": 1.32, "end": 1.53, "value": "B" },
+    { "start": 1.53, "end": 1.74, "value": "C" },
+    { "start": 1.74, "end": 1.88, "value": "B" },
+    { "start": 1.88, "end": 1.95, "value": "C" },
+    { "start": 1.95, "end": 2.03, "value": "A" },
+    { "start": 2.03, "end": 2.16, "value": "D" },
+    { "start": 2.16, "end": 2.23, "value": "C" },
+    { "start": 2.23, "end": 2.44, "value": "B" },
+    { "start": 2.44, "end": 2.51, "value": "C" },
+    { "start": 2.51, "end": 2.67, "value": "A" },
+    { "start": 2.67, "end": 2.78, "value": "X" }
+  ]
+}
