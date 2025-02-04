@@ -4,6 +4,9 @@
   "description": "Chatbot-Zoe-Backend",
   "main": "index.js",
   "type": "module",
+  "engines": {
+    "node": "16.x"
+  },
   "scripts": {
     "postinstall": "yarn install",
     "start": "node index.js",
