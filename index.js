@@ -20,6 +20,9 @@ const pollyClient = new PollyClient({
   },
 });
 
+const ffmpegPath = process.env.FFMPEG_PATH || "ffmpeg";
+const rhubarbPath = process.env.RHUBARB_PATH || "rhubarb";
+
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -62,13 +65,19 @@ const execCommand = (command) => {
 const lipSyncMessage = async (message) => {
   const time = new Date().getTime();
   console.log(`Starting conversion for message ${message}`);
-  await execCommand(
-    `"C:\\ffmpeg\\bin\\ffmpeg.exe" -y -i audios/message_${message}.mp3 audios/message_${message}.wav`
-  );
+  // await execCommand(
+  //   `"C:\\ffmpeg\\bin\\ffmpeg.exe" -y -i audios/message_${message}.mp3 audios/message_${message}.wav`
+  // );
+
+  await execCommand(`${ffmpegPath} -y -i audios/message_${message}.mp3 audios/message_${message}.wav`);
+  
   console.log(`Conversion done in ${new Date().getTime() - time}ms`);
-  await execCommand(
-    `"C:\\rhubarb\\rhubarb.exe" -f json -o audios/message_${message}.json audios/message_${message}.wav -r phonetic`
-  );
+  // await execCommand(
+  //   `"C:\\rhubarb\\rhubarb.exe" -f json -o audios/message_${message}.json audios/message_${message}.wav -r phonetic`
+  // );
+
+  await execCommand(`${rhubarbPath} -f json -o audios/message_${message}.json audios/message_${message}.wav -r phonetic`);
+
   console.log(`Lip sync done in ${new Date().getTime() - time}ms`);
 };
 

@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js --ext js"
+    "dev": "nodemon index.js --ext js",
+    "build": "apt-get update && apt-get install -y ffmpeg && curl -L https://github.com/DavidMorenoR/rhubarb/releases/download/v1.11.0/rhubarb-linux-x64.tar.gz | tar -xz -C /usr/local/bin"
   },
   "author": "Zanjeel <zanjeel123@gmail.com>",
   "dependencies": {
