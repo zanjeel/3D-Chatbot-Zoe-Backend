@@ -75,8 +75,7 @@ const execCommand = (command) => {
 // console.log(`index.js: Using Rhubarb at: ${rhubarbPath}`);
 
 
-
-const ffmpegPath = "./.local/bin/ffmpeg";
+const ffmpegPath = "./.local/bin/ffmpeg"; 
 const rhubarbPath = "./.local/bin/Rhubarb-Lip-Sync-1.13.0-Linux/rhubarb";
 
 // Check if the files are accessible
@@ -97,19 +96,20 @@ fs.access(rhubarbPath, fs.constants.F_OK)
   });
 
   const lipSyncMessage = async (message) => { 
-  const time = new Date().getTime();
-  console.log(`Starting conversion for message ${message}`);
+    const time = new Date().getTime();
+    console.log(`Starting conversion for message ${message}`);
+    
+    // Convert mp3 to wav using ffmpeg
+    await execCommand(`"${ffmpegPath}" -y -i "audios/message_${message}.mp3" "audios/message_${message}.wav"`);
+    
+    console.log(`Conversion done in ${new Date().getTime() - time}ms`);
   
-  // Convert mp3 to wav using ffmpeg
-  await execCommand(`${ffmpegPath} -y -i audios/message_${message}.mp3 audios/message_${message}.wav`);
+    // Perform lip sync using Rhubarb
+    await execCommand(`"${rhubarbPath}" -f json -o "audios/message_${message}.json" "audios/message_${message}.wav" -r phonetic`);
   
-  console.log(`Conversion done in ${new Date().getTime() - time}ms`);
-
-  // Perform lip sync using Rhubarb
-  await execCommand(`${rhubarbPath} -f json -o audios/message_${message}.json audios/message_${message}.wav -r phonetic`);
-
-  console.log(`Lip sync done in ${new Date().getTime() - time}ms`);
-};
+    console.log(`Lip sync done in ${new Date().getTime() - time}ms`);
+  };
+  
 
 
 
