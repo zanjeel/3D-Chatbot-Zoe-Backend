@@ -25,8 +25,14 @@ const rhubarbPath = process.env.RHUBARB_PATH || "rhubarb";
 
 const app = express();
 app.use(express.json());
-app.use(cors());
-const port = 3000;
+
+
+// app.use(cors());
+app.use(cors({
+  origin: process.env.FRONTEND_URL || "*",  // Allow frontend URL
+  methods: ["GET", "POST"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+}));
 
 // In-memory chat history storage
 const chatHistory = {};
@@ -196,88 +202,55 @@ app.post("/chat", async (req, res) => {
     return;
   }
 
-  // Add user message to chat history
-  addToChatHistory(sessionId, "user", userMessage);
+ // Add user message to chat history
+console.log("Adding user message to chat history:", userMessage);
+addToChatHistory(sessionId, "user", userMessage);
 
-  // Get chat history for the session
-  const history = getChatHistory(sessionId);
+// Get chat history for the session
+console.log("Getting chat history for session:", sessionId);
+const history = getChatHistory(sessionId);
 
-  // Format chat history for the prompt
-  const chatHistoryText = history
-    .map((entry) => `${entry.role}: ${entry.message}`)
-    .join("\n");
+// Format chat history for the prompt
+console.log("Formatting chat history into text");
+const chatHistoryText = history
+  .map((entry) => `${entry.role}: ${entry.message}`)
+  .join("\n");
 
-  // Use Google Gemini API for generating responses
-  try {
-    const prompt = `
-      Chat History:
-    ${chatHistoryText}
-
-    You are a close friend who is helpful, empathetic sarcastic and carries conversations. You must remember the topic user is talking about and not repeat anything from the Chat History.
-    Rules:
-    1. Do NOT start new messages with any repetitive phrase or starting words present in Chat History.
-    2. Do NOT end any sentence with "isn't it" or similar repetitive present in Chat History.
-    3. Keep responses short and concise (maximum 2-3 sentences).
-    4. Avoid starting sentences with the same word or phrase.
-    5. Do not use special characters like asterisks (*) or backticks (\`).
-    6. Always reply with a JSON array of messages, with a maximum of 1 message.
-    7. Each message must have text, facialExpression, and animation properties.
-    8. The available facial expressions are: smile, sad, angry, surprised, and default.
-    9. The available animations are: Talking_1, Crying, Laughing, Rumba, Idle, Terrified, and Angry.
-  
+// Use Google Gemini API for generating responses
+try {
+  const prompt = `
     Chat History:
-    ${chatHistoryText}
-  
-    User message: ${userMessage || "Hello"}
+  ${chatHistoryText}
+
+  You are a close friend who is helpful, empathetic sarcastic and carries conversations. You must remember the topic user is talking about and not repeat anything from the Chat History.
+  Rules:
+  1. Do NOT start new messages with any repetitive phrase or starting words present in Chat History.
+  2. Do NOT end any sentence with "isn't it" or similar repetitive present in Chat History.
+  3. Keep responses short and concise (maximum 2-3 sentences).
+  4. Avoid starting sentences with the same word or phrase.
+  5. Do not use special characters like asterisks (*) or backticks (\`).
+  6. Always reply with a JSON array of messages, with a maximum of 1 message.
+  7. Each message must have text, facialExpression, and animation properties.
+  8. The available facial expressions are: smile, sad, angry, surprised, and default.
+  9. The available animations are: Talking_1, Crying, Laughing, Rumba, Idle, Terrified, and Angry.
+
+  Chat History:
+  ${chatHistoryText}
+
+  User message: ${userMessage || "Hello"}
   `;
+  
+  console.log("Sending prompt to Gemini API:", prompt);
+  const result = await model.generateContent(prompt);
+  const responseText = result.response.text();
+  console.log("Received response from Gemini API:", responseText);
 
-    const result = await model.generateContent(prompt);
-    const responseText = result.response.text();
+  // Extract JSON from the response
+  let messages = extractJsonFromResponse(responseText);
 
-    // Extract JSON from the response
-    let messages = extractJsonFromResponse(responseText);
-
-    if (!messages) {
-      console.error("Invalid response from Gemini API:", responseText);
-      res.status(400).send({
-        messages: [
-          {
-            text: "Whoops, I tried to generate some witty banter, but my circuits are feeling a bit fried. Let's give it another go, yeah?",
-            audio: await audioFileToBase64("audios/error.wav"),
-            lipsync: await readJsonTranscript("audios/error.json"),
-            facialExpression: "surprised",
-            animation: "Idle",
-          },
-        ],
-      });
-      return;
-    }
-
-    if (messages.messages) {
-      messages = messages.messages; // Handle nested messages property
-    }
-
-    // Add bot response to chat history
-    messages.forEach((message) => {
-      addToChatHistory(sessionId, "bot", message.text);
-    });
-
-    // Generate audio and lip sync for each message
-    for (let i = 0; i < messages.length; i++) {
-      const message = messages[i];
-      const fileName = `audios/message_${i}.mp3`;
-      const textInput = message.text;
-      await textToSpeechPolly(textInput, fileName); // Use Amazon Polly instead of ElevenLabs
-      await lipSyncMessage(i);
-      message.audio = await audioFileToBase64(fileName);
-      message.lipsync = await readJsonTranscript(`audios/message_${i}.json`);
-    }
-
-    res.send({ messages });
-  } catch (error) {
-    console.error("Error generating response with API:", error);
-
-    res.status(500).send({
+  if (!messages) {
+    console.error("Invalid response from Gemini API:", responseText);
+    res.status(400).send({
       messages: [
         {
           text: "Whoops, I tried to generate some witty banter, but my circuits are feeling a bit fried. Let's give it another go, yeah?",
@@ -288,7 +261,48 @@ app.post("/chat", async (req, res) => {
         },
       ],
     });
+    return;
   }
+
+  if (messages.messages) {
+    messages = messages.messages; // Handle nested messages property
+  }
+
+  // Add bot response to chat history
+  console.log("Adding bot response to chat history");
+  messages.forEach((message) => {
+    addToChatHistory(sessionId, "bot", message.text);
+  });
+
+  // Generate audio and lip sync for each message
+  for (let i = 0; i < messages.length; i++) {
+    const message = messages[i];
+    const fileName = `audios/message_${i}.mp3`;
+    const textInput = message.text;
+    console.log(`Converting text to speech for message ${i}: ${textInput}`);
+    await textToSpeechPolly(textInput, fileName); // Use Amazon Polly instead of ElevenLabs
+    await lipSyncMessage(i);
+    message.audio = await audioFileToBase64(fileName);
+    message.lipsync = await readJsonTranscript(`audios/message_${i}.json`);
+  }
+
+  console.log("Sending final response to user");
+  res.send({ messages });
+} catch (error) {
+  console.error("Error generating response with API:", error);
+
+  res.status(500).send({
+    messages: [
+      {
+        text: "Whoops, I tried to generate some witty banter, but my circuits are feeling a bit fried. Let's give it another go, yeah?",
+        audio: await audioFileToBase64("audios/error.wav"),
+        lipsync: await readJsonTranscript("audios/error.json"),
+        facialExpression: "sad",
+        animation: "Idle",
+      },
+    ],
+  });
+}
 });
 
 const readJsonTranscript = async (file) => {
@@ -300,6 +314,7 @@ const audioFileToBase64 = async (file) => {
   const data = await fs.readFile(file);
   return data.toString("base64");
 };
+const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
   console.log(`BFF listening on port ${port}`);
