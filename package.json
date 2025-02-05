@@ -5,13 +5,12 @@
   "main": "index.js",
   "type": "module",
   "engines": {
-    "node": "16.x"
+    "node": "18.x"
   },
   "scripts": {
     "postinstall": "yarn install",
     "start": "node index.js",
-    "dev": "nodemon index.js --ext js",
-    "build": "apt-get update && apt-get install -y ffmpeg && curl -L https://github.com/DavidMorenoR/rhubarb/releases/download/v1.11.0/rhubarb-linux-x64.tar.gz | tar -xz -C /usr/local/bin"
+    "dev": "nodemon index.js --ext js"
   },
   "author": "Zanjeel <zanjeel123@gmail.com>",
   "dependencies": {
@@ -27,5 +26,6 @@
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
-  }
+  },
+  "packageManager": "yarn@4.6.0+sha512.5383cc12567a95f1d668fbe762dfe0075c595b4bfff433be478dbbe24e05251a8e8c3eb992a986667c1d53b6c3a9c85b8398c35a960587fbd9fa3a0915406728"
 }
