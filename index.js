@@ -65,17 +65,34 @@ const execCommand = (command) => {
   });
 };
 
-const ffmpegPath = process.env.FFMPEG_PATH;
-const rhubarbPath = process.env.RHUBARB_PATH;
+// const ffmpegPath = process.env.FFMPEG_PATH;
+// const rhubarbPath = process.env.RHUBARB_PATH;
+
+const ffmpegPath = "/opt/render/.local/bin/ffmpeg";
+const rhubarbPath = "/opt/render/.local/bin/rhubarb";
+
 
 console.log(`index.js: Using FFMPEG at: ${ffmpegPath}`);
 console.log(`index.js: Using Rhubarb at: ${rhubarbPath}`);
 
-// // Ensure that Rhubarb exists at the path
-// if (!fs.existsSync(rhubarbPath)) {
-//   console.error(`Error: Rhubarb not found at ${rhubarbPath}`);
-//   process.exit(1);
-// }
+
+
+// Check if the files are accessible
+fs.access(ffmpegPath, fs.constants.F_OK)
+  .then(() => {
+    console.log("FFmpeg is accessible.");
+  })
+  .catch(() => {
+    console.error("FFmpeg not found or inaccessible.");
+  });
+
+fs.access(rhubarbPath, fs.constants.F_OK)
+  .then(() => {
+    console.log("Rhubarb is accessible.");
+  })
+  .catch(() => {
+    console.error("Rhubarb not found or inaccessible.");
+  });
 
 const lipSyncMessage = async (message) => { 
   const time = new Date().getTime();
