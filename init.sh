@@ -1,35 +1,23 @@
-#!/bin/bash
-set -e
+# Install Rhubarb v1.13.0
+echo "Installing Rhubarb v1.13.0..."
 
-# Define local installation directory inside the project
+RHUBARB_URL="https://github.com/DanielSWolf/rhubarb-lip-sync/releases/download/v1.13.0/Rhubarb-Lip-Sync-1.13.0-Linux.zip"
+RHUBARB_ZIP="Rhubarb-Lip-Sync-1.13.0-Linux.zip"
 INSTALL_DIR="./.local/bin"
 mkdir -p $INSTALL_DIR
 
-# Install FFmpeg
-echo "Installing FFmpeg..."
-curl -L https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz | tar -xJ
-mv ffmpeg-*-static/ffmpeg $INSTALL_DIR/
-mv ffmpeg-*-static/ffprobe $INSTALL_DIR/
-chmod +x $INSTALL_DIR/ffmpeg $INSTALL_DIR/ffprobe
+# Download Rhubarb .zip file
+curl -L $RHUBARB_URL -o $RHUBARB_ZIP
 
-# Install Rhubarb manually without sudo
-echo "Installing Rhubarb..."
-
-# Use wget to download Rhubarb (from GitHub, verified URL)
-wget https://github.com/DavidMorenoR/rhubarb/releases/download/v1.11.0/rhubarb-linux-x64.tar.gz -O rhubarb.tar.gz
-
-# Check the file format before extraction
-if file rhubarb.tar.gz | grep -q 'gzip compressed data'; then
-  # Extract Rhubarb and move to INSTALL_DIR
-  tar -xzf rhubarb.tar.gz -C $INSTALL_DIR
-  rm rhubarb.tar.gz
+# Unzip and install Rhubarb
+if [ -f $RHUBARB_ZIP ]; then
+  unzip $RHUBARB_ZIP -d $INSTALL_DIR
+  rm $RHUBARB_ZIP
 else
-  echo "Error: The Rhubarb tarball is not in the expected format."
+  echo "Error: Failed to download Rhubarb ZIP file."
   exit 1
 fi
 
 # Update PATH
-echo "Updating PATH..."
 export PATH="$INSTALL_DIR:$PATH"
-
-echo "FFmpeg and Rhubarb installed successfully!"
+echo "Rhubarb v1.13.0 installed successfully!"
