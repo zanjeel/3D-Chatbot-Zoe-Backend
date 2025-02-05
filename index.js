@@ -64,8 +64,9 @@ const execCommand = (command) => {
     });
   });
 };
+
 const ffmpegPath = process.env.FFMPEG_PATH || "/usr/bin/ffmpeg";
-const rhubarbPath = process.env.RHUBARB_PATH || "/home/render/.local/bin/rhubarb";  // Full path to rhubarb
+const rhubarbPath = process.env.RHUBARB_PATH || "/home/render/.local/bin/rhubarb";
 
 console.log(`Using FFMPEG at: ${ffmpegPath}`);
 console.log(`Using Rhubarb at: ${rhubarbPath}`);
