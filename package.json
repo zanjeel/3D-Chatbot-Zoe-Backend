@@ -19,10 +19,8 @@
     "axios": "^1.7.9",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
-    "elevenlabs-node": "^1.2.0",
     "express": "^4.18.2",
-    "fluent-ffmpeg": "^2.1.3",
-    "openai": "^4.80.1"
+    "fluent-ffmpeg": "^2.1.3"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
