@@ -12,11 +12,15 @@ mv ffmpeg-*-static/ffmpeg $INSTALL_DIR/
 mv ffmpeg-*-static/ffprobe $INSTALL_DIR/
 chmod +x $INSTALL_DIR/ffmpeg $INSTALL_DIR/ffprobe
 
-# Install Rhubarb using .deb file (Direct URL)
+# Install Rhubarb manually without sudo
 echo "Installing Rhubarb..."
-curl -L https://github.com/DavidMorenoR/rhubarb/releases/download/v1.11.0/rhubarb_1.11.0_amd64.deb -o rhubarb.deb
-sudo dpkg -i rhubarb.deb
-rm rhubarb.deb
+
+# Download Rhubarb to a temporary directory
+curl -L https://github.com/DavidMorenoR/rhubarb/releases/download/v1.11.0/rhubarb-linux-x64.tar.gz -o rhubarb.tar.gz
+
+# Extract Rhubarb and move to INSTALL_DIR
+tar -xzf rhubarb.tar.gz -C $INSTALL_DIR
+rm rhubarb.tar.gz
 
 # Update PATH
 echo "Updating PATH..."
