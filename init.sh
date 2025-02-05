@@ -1,16 +1,24 @@
 #!/bin/bash
 set -e
 
-# Install FFmpeg (Download precompiled binary)
+# Define installation directory
+INSTALL_DIR="/opt/bin"
+mkdir -p $INSTALL_DIR
+
+# Install FFmpeg
 echo "Installing FFmpeg..."
 curl -L https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz | tar -xJ
-mv ffmpeg-*-static/ffmpeg /usr/local/bin/
-mv ffmpeg-*-static/ffprobe /usr/local/bin/
-chmod +x /usr/local/bin/ffmpeg /usr/local/bin/ffprobe
+mv ffmpeg-*-static/ffmpeg $INSTALL_DIR/
+mv ffmpeg-*-static/ffprobe $INSTALL_DIR/
+chmod +x $INSTALL_DIR/ffmpeg $INSTALL_DIR/ffprobe
 
 # Install Rhubarb
 echo "Installing Rhubarb..."
-curl -L https://github.com/DavidMorenoR/rhubarb/releases/download/v1.11.0/rhubarb-linux-x64.tar.gz | tar -xz -C /usr/local/bin
-chmod +x /usr/local/bin/rhubarb
+curl -L https://github.com/DavidMorenoR/rhubarb/releases/download/v1.11.0/rhubarb-linux-x64.tar.gz | tar -xz -C $INSTALL_DIR
+chmod +x $INSTALL_DIR/rhubarb
+
+# Update PATH
+echo "Updating PATH..."
+export PATH="$INSTALL_DIR:$PATH"
 
 echo "FFmpeg and Rhubarb installed successfully!"
