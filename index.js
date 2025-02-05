@@ -20,9 +20,6 @@ const pollyClient = new PollyClient({
   },
 });
 
-const ffmpegPath = process.env.FFMPEG_PATH || "ffmpeg";
-const rhubarbPath = process.env.RHUBARB_PATH || "rhubarb";
-
 const app = express();
 app.use(express.json());
 const port = process.env.PORT || 3000;
@@ -67,25 +64,35 @@ const execCommand = (command) => {
     });
   });
 };
+const ffmpegPath = process.env.FFMPEG_PATH || "/usr/bin/ffmpeg";
+const rhubarbPath = process.env.RHUBARB_PATH || "/home/render/.local/bin/rhubarb";  // Full path to rhubarb
 
-const lipSyncMessage = async (message) => {
+console.log(`Using FFMPEG at: ${ffmpegPath}`);
+console.log(`Using Rhubarb at: ${rhubarbPath}`);
+
+// Ensure that Rhubarb exists at the path
+const fs = require('fs');
+if (!fs.existsSync(rhubarbPath)) {
+  console.error(`Error: Rhubarb not found at ${rhubarbPath}`);
+  process.exit(1);
+}
+
+const lipSyncMessage = async (message) => { 
   const time = new Date().getTime();
   console.log(`Starting conversion for message ${message}`);
-  // await execCommand(
-  //   `"C:\\ffmpeg\\bin\\ffmpeg.exe" -y -i audios/message_${message}.mp3 audios/message_${message}.wav`
-  // );
-
+  
+  // Convert mp3 to wav using ffmpeg
   await execCommand(`${ffmpegPath} -y -i audios/message_${message}.mp3 audios/message_${message}.wav`);
   
   console.log(`Conversion done in ${new Date().getTime() - time}ms`);
-  // await execCommand(
-  //   `"C:\\rhubarb\\rhubarb.exe" -f json -o audios/message_${message}.json audios/message_${message}.wav -r phonetic`
-  // );
 
+  // Perform lip sync using Rhubarb
   await execCommand(`${rhubarbPath} -f json -o audios/message_${message}.json audios/message_${message}.wav -r phonetic`);
 
   console.log(`Lip sync done in ${new Date().getTime() - time}ms`);
 };
+
+
 
 // Extract JSON from Gemini response (handles Markdown code blocks)
 const extractJsonFromResponse = (response) => {
