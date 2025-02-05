@@ -15,8 +15,8 @@ chmod +x $INSTALL_DIR/ffmpeg $INSTALL_DIR/ffprobe
 # Install Rhubarb manually without sudo
 echo "Installing Rhubarb..."
 
-# Download Rhubarb from the correct release URL
-curl -L https://github.com/DavidMorenoR/rhubarb/releases/download/v1.11.0/rhubarb-linux-x64.tar.gz -o rhubarb.tar.gz
+# Use wget to download Rhubarb (from GitHub, verified URL)
+wget https://github.com/DavidMorenoR/rhubarb/releases/download/v1.11.0/rhubarb-linux-x64.tar.gz -O rhubarb.tar.gz
 
 # Check the file format before extraction
 if file rhubarb.tar.gz | grep -q 'gzip compressed data'; then
