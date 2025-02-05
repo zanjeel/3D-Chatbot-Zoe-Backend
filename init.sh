@@ -12,10 +12,14 @@ mv ffmpeg-*-static/ffmpeg $INSTALL_DIR/
 mv ffmpeg-*-static/ffprobe $INSTALL_DIR/
 chmod +x $INSTALL_DIR/ffmpeg $INSTALL_DIR/ffprobe
 
-# Install Rhubarb
+# Install Rhubarb (direct tar.gz URL update)
 echo "Installing Rhubarb..."
-curl -L https://github.com/DavidMorenoR/rhubarb/releases/download/v1.11.0/rhubarb-linux-x64.tar.gz | tar -xz -C $INSTALL_DIR
+curl -L https://github.com/DavidMorenoR/rhubarb/releases/download/v1.11.0/rhubarb-linux-x64.tar.gz -o rhubarb.tar.gz
+tar -xzvf rhubarb.tar.gz -C $INSTALL_DIR
 chmod +x $INSTALL_DIR/rhubarb
+
+# Clean up
+rm rhubarb.tar.gz
 
 # Update PATH
 echo "Updating PATH..."
