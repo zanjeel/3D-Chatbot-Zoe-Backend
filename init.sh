@@ -1,3 +1,17 @@
+#!/bin/bash
+set -e
+
+# Define local installation directory inside the project
+INSTALL_DIR="./.local/bin"
+mkdir -p $INSTALL_DIR
+
+# Install FFmpeg
+echo "Installing FFmpeg..."
+curl -L https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz | tar -xJ
+mv ffmpeg-*-static/ffmpeg $INSTALL_DIR/
+mv ffmpeg-*-static/ffprobe $INSTALL_DIR/
+chmod +x $INSTALL_DIR/ffmpeg $INSTALL_DIR/ffprobe
+
 # Install Rhubarb v1.13.0
 echo "Installing Rhubarb v1.13.0..."
 
