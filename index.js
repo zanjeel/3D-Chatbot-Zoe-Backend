@@ -65,11 +65,11 @@ const execCommand = (command) => {
   });
 };
 
-const ffmpegPath = process.env.FFMPEG_PATH || "/usr/bin/ffmpeg";
-const rhubarbPath = process.env.RHUBARB_PATH || "/home/render/.local/bin/rhubarb";
+const ffmpegPath = process.env.FFMPEG_PATH;
+const rhubarbPath = process.env.RHUBARB_PATH;
 
-console.log(`Using FFMPEG at: ${ffmpegPath}`);
-console.log(`Using Rhubarb at: ${rhubarbPath}`);
+console.log(`index.js: Using FFMPEG at: ${ffmpegPath}`);
+console.log(`index.js: Using Rhubarb at: ${rhubarbPath}`);
 
 // // Ensure that Rhubarb exists at the path
 // if (!fs.existsSync(rhubarbPath)) {

@@ -1,40 +1,35 @@
 #!/bin/bash
-set -e
+set -e  # Exit on error
 
 # Define local installation directory inside the project
 INSTALL_DIR="./.local/bin"
 mkdir -p $INSTALL_DIR
 
-# Install FFmpeg
+# FFmpeg installation
 echo "Installing FFmpeg..."
-curl -L https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz | tar -xJ
-mv ffmpeg-*-static/ffmpeg $INSTALL_DIR/
-mv ffmpeg-*-static/ffprobe $INSTALL_DIR/
+FFMPEG_URL="https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz"
+FFMPEG_TAR="$INSTALL_DIR/ffmpeg-release.tar.xz"
+
+# Download and extract FFmpeg
+curl -L $FFMPEG_URL -o $FFMPEG_TAR
+tar -xJf $FFMPEG_TAR -C $INSTALL_DIR --strip-components=1
+rm $FFMPEG_TAR
+
+# Ensure FFmpeg is executable
 chmod +x $INSTALL_DIR/ffmpeg $INSTALL_DIR/ffprobe
 
-# Install Rhubarb v1.13.0
-echo "Installing Rhubarb v1.13.0..."
-
+# Rhubarb installation
+echo "Installing Rhubarb..."
 RHUBARB_URL="https://github.com/DanielSWolf/rhubarb-lip-sync/releases/download/v1.13.0/Rhubarb-Lip-Sync-1.13.0-Linux.zip"
-RHUBARB_ZIP="Rhubarb-Lip-Sync-1.13.0-Linux.zip"
+RHUBARB_ZIP="$INSTALL_DIR/Rhubarb-Lip-Sync.zip"
 
-# Download Rhubarb .zip file
+# Download and extract Rhubarb
 curl -L $RHUBARB_URL -o $RHUBARB_ZIP
-
-# Unzip and install Rhubarb
-if [ -f $RHUBARB_ZIP ]; then
-  unzip $RHUBARB_ZIP -d $INSTALL_DIR
-  rm $RHUBARB_ZIP
-else
-  echo "Error: Failed to download Rhubarb ZIP file."
-  exit 1
-fi
+unzip $RHUBARB_ZIP -d $INSTALL_DIR
+rm $RHUBARB_ZIP
 
 # Ensure Rhubarb is executable
 chmod +x $INSTALL_DIR/Rhubarb-Lip-Sync-1.13.0-Linux/rhubarb
-
-# Update PATH (Optional, if needed in your environment)
-export PATH="$INSTALL_DIR:$PATH"
 
 # Confirm installation locations
 echo "init.sh: Using FFmpeg at: $INSTALL_DIR/ffmpeg"
