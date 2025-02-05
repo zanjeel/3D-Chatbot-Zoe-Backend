@@ -17,8 +17,6 @@ echo "Installing Rhubarb v1.13.0..."
 
 RHUBARB_URL="https://github.com/DanielSWolf/rhubarb-lip-sync/releases/download/v1.13.0/Rhubarb-Lip-Sync-1.13.0-Linux.zip"
 RHUBARB_ZIP="Rhubarb-Lip-Sync-1.13.0-Linux.zip"
-INSTALL_DIR="./.local/bin"
-mkdir -p $INSTALL_DIR
 
 # Download Rhubarb .zip file
 curl -L $RHUBARB_URL -o $RHUBARB_ZIP
@@ -32,14 +30,9 @@ else
   exit 1
 fi
 
-# Set execute permissions for Rhubarb
-chmod +x $INSTALL_DIR/rhubarb
+# Ensure Rhubarb is executable
+chmod +x $INSTALL_DIR/Rhubarb-Lip-Sync-1.13.0-Linux/rhubarb
 
 # Update PATH
 export PATH="$INSTALL_DIR:$PATH"
-
-# Set environment variables for access
-export FFMPEG_PATH="$INSTALL_DIR/ffmpeg"
-export RHUBARB_PATH="$INSTALL_DIR/rhubarb"
-
-echo "FFmpeg and Rhubarb installed and configured successfully!"
+echo "Rhubarb v1.13.0 installed successfully!"
