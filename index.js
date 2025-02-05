@@ -70,11 +70,11 @@ const rhubarbPath = process.env.RHUBARB_PATH || "/home/render/.local/bin/rhubarb
 console.log(`Using FFMPEG at: ${ffmpegPath}`);
 console.log(`Using Rhubarb at: ${rhubarbPath}`);
 
-// Ensure that Rhubarb exists at the path
-if (!fs.existsSync(rhubarbPath)) {
-  console.error(`Error: Rhubarb not found at ${rhubarbPath}`);
-  process.exit(1);
-}
+// // Ensure that Rhubarb exists at the path
+// if (!fs.existsSync(rhubarbPath)) {
+//   console.error(`Error: Rhubarb not found at ${rhubarbPath}`);
+//   process.exit(1);
+// }
 
 const lipSyncMessage = async (message) => { 
   const time = new Date().getTime();
