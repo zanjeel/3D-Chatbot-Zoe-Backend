@@ -32,6 +32,14 @@ else
   exit 1
 fi
 
+# Set execute permissions for Rhubarb
+chmod +x $INSTALL_DIR/rhubarb
+
 # Update PATH
 export PATH="$INSTALL_DIR:$PATH"
-echo "Rhubarb v1.13.0 installed successfully!"
+
+# Set environment variables for access
+export FFMPEG_PATH="$INSTALL_DIR/ffmpeg"
+export RHUBARB_PATH="$INSTALL_DIR/rhubarb"
+
+echo "FFmpeg and Rhubarb installed and configured successfully!"
