@@ -12,6 +12,14 @@ mv ffmpeg-*-static/ffmpeg $INSTALL_DIR/
 mv ffmpeg-*-static/ffprobe $INSTALL_DIR/
 chmod +x $INSTALL_DIR/ffmpeg $INSTALL_DIR/ffprobe
 
+# Verify FFmpeg installation
+if [ -f "$INSTALL_DIR/ffmpeg" ]; then
+  echo "FFmpeg installed successfully."
+else
+  echo "Error: FFmpeg installation failed."
+  exit 1
+fi
+
 ### Install Rhubarb ###
 echo "Installing Rhubarb v1.13.0..."
 
@@ -35,6 +43,14 @@ mv $INSTALL_DIR/Rhubarb-Lip-Sync-1.13.0-Linux/rhubarb $INSTALL_DIR/
 
 # Ensure Rhubarb is executable
 chmod +x $INSTALL_DIR/rhubarb
+
+# Verify Rhubarb installation
+if [ -f "$INSTALL_DIR/rhubarb" ]; then
+  echo "Rhubarb installed successfully."
+else
+  echo "Error: Rhubarb installation failed."
+  exit 1
+fi
 
 # Confirm installation paths
 echo "init.sh: Using FFmpeg at: $INSTALL_DIR/ffmpeg"

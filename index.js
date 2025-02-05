@@ -68,18 +68,21 @@ const execCommand = (command) => {
 // const ffmpegPath = process.env.FFMPEG_PATH;
 // const rhubarbPath = process.env.RHUBARB_PATH;
 
-const ffmpegPath = "/tmp/.local/bin/ffmpeg";
-const rhubarbPath = "/tmp/.local/bin/rhubarb";
+// const ffmpegPath = "/tmp/.local/bin/ffmpeg";
+// const rhubarbPath = "/tmp/.local/bin/rhubarb";
 
 // console.log(`index.js: Using FFMPEG at: ${ffmpegPath}`);
 // console.log(`index.js: Using Rhubarb at: ${rhubarbPath}`);
 
 
 
+const ffmpegPath = "/tmp/.local/bin/ffmpeg";
+const rhubarbPath = "/tmp/.local/bin/rhubarb";
+
 // Check if the files are accessible
 fs.access(ffmpegPath, fs.constants.F_OK)
   .then(() => {
-    console.log("FFmpeg is accessible.");
+    console.log(`index.js: Using FFmpeg at: ${ffmpegPath}`);
   })
   .catch(() => {
     console.error("FFmpeg not found or inaccessible.");
@@ -87,13 +90,13 @@ fs.access(ffmpegPath, fs.constants.F_OK)
 
 fs.access(rhubarbPath, fs.constants.F_OK)
   .then(() => {
-    console.log("Rhubarb is accessible.");
+    console.log(`index.js: Using Rhubarb at: ${rhubarbPath}`);
   })
   .catch(() => {
     console.error("Rhubarb not found or inaccessible.");
   });
 
-const lipSyncMessage = async (message) => { 
+  const lipSyncMessage = async (message) => { 
   const time = new Date().getTime();
   console.log(`Starting conversion for message ${message}`);
   
