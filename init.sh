@@ -1,8 +1,8 @@
 #!/bin/bash
 set -e  # Exit on error
 
-# Define absolute installation directory
-INSTALL_DIR="$HOME/.local/bin"
+# Define installation directory (absolute path for Render)
+INSTALL_DIR="/opt/render/.local/bin"
 mkdir -p $INSTALL_DIR
 
 ### Install FFmpeg ###

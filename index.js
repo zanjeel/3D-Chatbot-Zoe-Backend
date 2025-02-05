@@ -72,8 +72,8 @@ const ffmpegPath = "/opt/render/.local/bin/ffmpeg";
 const rhubarbPath = "/opt/render/.local/bin/rhubarb";
 
 
-console.log(`index.js: Using FFMPEG at: ${ffmpegPath}`);
-console.log(`index.js: Using Rhubarb at: ${rhubarbPath}`);
+// console.log(`index.js: Using FFMPEG at: ${ffmpegPath}`);
+// console.log(`index.js: Using Rhubarb at: ${rhubarbPath}`);
 
 
 
