@@ -1,8 +1,8 @@
 #!/bin/bash
 set -e
 
-# Define installation directory
-INSTALL_DIR="/opt/bin"
+# Define local installation directory inside the project
+INSTALL_DIR="./.local/bin"
 mkdir -p $INSTALL_DIR
 
 # Install FFmpeg
