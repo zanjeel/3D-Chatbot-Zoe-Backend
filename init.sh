@@ -1,8 +1,8 @@
 #!/bin/bash
 set -e  # Exit on error
 
-# Define installation directory (absolute path for Render)
-INSTALL_DIR="/opt/render/.local/bin"
+# Define installation directory in /tmp (non-persistent)
+INSTALL_DIR="/tmp/.local/bin"
 mkdir -p $INSTALL_DIR
 
 ### Install FFmpeg ###
