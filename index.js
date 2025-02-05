@@ -25,7 +25,7 @@ const rhubarbPath = process.env.RHUBARB_PATH || "rhubarb";
 
 const app = express();
 app.use(express.json());
-
+const port = process.env.PORT || 3000;
 
 // app.use(cors());
 app.use(cors({
@@ -314,7 +314,6 @@ const audioFileToBase64 = async (file) => {
   const data = await fs.readFile(file);
   return data.toString("base64");
 };
-const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
   console.log(`BFF listening on port ${port}`);
