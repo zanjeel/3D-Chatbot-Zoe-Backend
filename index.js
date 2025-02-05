@@ -76,8 +76,8 @@ const execCommand = (command) => {
 
 
 
-const ffmpegPath = "/tmp/.local/bin/ffmpeg";
-const rhubarbPath = "/tmp/.local/bin/rhubarb";
+const ffmpegPath = "./.local/bin/ffmpeg";
+const rhubarbPath = "./.local/bin/Rhubarb-Lip-Sync-1.13.0-Linux/rhubarb";
 
 // Check if the files are accessible
 fs.access(ffmpegPath, fs.constants.F_OK)
