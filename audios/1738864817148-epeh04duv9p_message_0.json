@@ -1,0 +1,38 @@
+{
+  "metadata": {
+    "soundFile": "C:\\Users\\zanje\\Desktop\\Chatbot-Zoe\\Chatbot-Zoe-Backend\\audios\\1738864817148-epeh04duv9p_message_0.wav",
+    "duration": 4.62
+  },
+  "mouthCues": [
+    { "start": 0.00, "end": 0.02, "value": "X" },
+    { "start": 0.02, "end": 0.37, "value": "C" },
+    { "start": 0.37, "end": 0.51, "value": "E" },
+    { "start": 0.51, "end": 0.67, "value": "B" },
+    { "start": 0.67, "end": 0.80, "value": "C" },
+    { "start": 0.80, "end": 0.94, "value": "B" },
+    { "start": 0.94, "end": 1.01, "value": "C" },
+    { "start": 1.01, "end": 1.22, "value": "B" },
+    { "start": 1.22, "end": 1.56, "value": "X" },
+    { "start": 1.56, "end": 1.67, "value": "B" },
+    { "start": 1.67, "end": 1.74, "value": "C" },
+    { "start": 1.74, "end": 1.82, "value": "A" },
+    { "start": 1.82, "end": 1.86, "value": "B" },
+    { "start": 1.86, "end": 1.97, "value": "C" },
+    { "start": 1.97, "end": 2.32, "value": "B" },
+    { "start": 2.32, "end": 2.39, "value": "C" },
+    { "start": 2.39, "end": 2.46, "value": "E" },
+    { "start": 2.46, "end": 2.67, "value": "F" },
+    { "start": 2.67, "end": 3.02, "value": "B" },
+    { "start": 3.02, "end": 3.23, "value": "C" },
+    { "start": 3.23, "end": 3.30, "value": "B" },
+    { "start": 3.30, "end": 3.47, "value": "X" },
+    { "start": 3.47, "end": 3.70, "value": "B" },
+    { "start": 3.70, "end": 3.77, "value": "C" },
+    { "start": 3.77, "end": 3.84, "value": "G" },
+    { "start": 3.84, "end": 4.19, "value": "B" },
+    { "start": 4.19, "end": 4.26, "value": "G" },
+    { "start": 4.26, "end": 4.33, "value": "C" },
+    { "start": 4.33, "end": 4.61, "value": "B" },
+    { "start": 4.61, "end": 4.62, "value": "X" }
+  ]
+}
