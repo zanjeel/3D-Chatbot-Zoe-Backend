@@ -337,7 +337,7 @@ app.post("/chat", async (req, res) => {
           // Convert text to speech using Polly
           await textToSpeechPolly(message.text, fileName);
         } catch (error) {
-          console.error(`Error converting text to speech for message ${i}:`, error);
+          console.log(`Error converting text to speech for message ${i}:`, error);
           return res.status(500).send({ error: `Failed to convert text to speech for message ${i}.` });
         }
       
@@ -345,7 +345,7 @@ app.post("/chat", async (req, res) => {
           // Perform lip sync on the audio file
           await lipSyncMessage(userId, i);
         } catch (error) {
-          console.error(`Error during lip sync for message ${i}:`, error);
+          console.log(`Error during lip sync for message ${i}:`, error);
           return res.status(500).send({ error: `Failed to perform lip sync for message ${i}.` });
         }
       
@@ -353,7 +353,7 @@ app.post("/chat", async (req, res) => {
           // Convert audio file to Base64
           message.audio = await audioFileToBase64(fileName);
         } catch (error) {
-          console.error(`Error converting audio to Base64 for message ${i}:`, error);
+          console.log(`Error converting audio to Base64 for message ${i}:`, error);
           return res.status(500).send({ error: `Failed to convert audio to Base64 for message ${i}.` });
         }
       
@@ -361,7 +361,7 @@ app.post("/chat", async (req, res) => {
           // Read lip sync JSON transcript
           message.lipsync = await readJsonTranscript(`audios/${userId}_message_${i}.json`);
         } catch (error) {
-          console.error(`Error reading lipsync JSON for message ${i}:`, error);
+          console.log(`Error reading lipsync JSON for message ${i}:`, error);
           return res.status(500).send({ error: `Failed to read lipsync JSON for message ${i}.` });
         }
       
@@ -369,29 +369,21 @@ app.post("/chat", async (req, res) => {
           // Remove audio files after use
           await removeAudioFiles(userId, i);
         } catch (error) {
-          console.error(`Error removing audio files for message ${i}:`, error);
+          console.log(`Error removing audio files for message ${i}:`, error);
           return res.status(500).send({ error: `Failed to remove audio files for message ${i}.` });
         }
       }
       
 
       
-      console.log("Sending final response to user");
+  console.log("Sending final response to user", {messages});
   res.send({ messages });
 
 } catch (error) {
   console.error("Error generating response with API:", error);
 
   res.status(500).send({
-    messages: [
-      {
-        text: "Whoops, I tried to generate some witty banter, but my circuits are feeling a bit fried. Let's give it another go, yeah?",
-        audio: await audioFileToBase64("audios/error.wav"),
-        lipsync: await readJsonTranscript("audios/error.json"),
-        facialExpression: "sad",
-        animation: "Idle",
-      },
-    ],
+    error: `General error .`
   });
 }
 });
