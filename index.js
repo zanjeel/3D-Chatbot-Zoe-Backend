@@ -37,6 +37,24 @@ app.use(cors({
   optionsSuccessStatus: 204  // Some legacy browsers (like IE) may require this
 }));
 
+// Function to remove audio files
+const removeAudioFiles = async (userId, messageIndex) => {
+  try {
+    const mp3File = `audios/${userId}_message_${messageIndex}.mp3`;
+    const wavFile = `audios/${userId}_message_${messageIndex}.wav`;
+    const jsonFile = `audios/${userId}_message_${messageIndex}.json`;
+
+    // Remove the files
+    await fs.unlink(mp3File);
+    await fs.unlink(wavFile);
+    await fs.unlink(jsonFile);
+
+    console.log(`Deleted audio files for message ${messageIndex}`);
+  } catch (err) {
+    console.error('Error deleting audio files:', err);
+  }
+};
+
 
 // In-memory storage for each user's session
 const userSessions = {}; // This will store chat history and session locks per user
@@ -298,18 +316,69 @@ app.post("/chat", async (req, res) => {
         addToUserChatHistory(userId, "bot", message.text);
       });
 
+      // for (let i = 0; i < messages.length; i++) {
+      //   const message = messages[i];
+      //   const fileName = `audios/${userId}_message_${i}.mp3`;
+      //   console.log(`Converting text to speech for message ${i}: ${message.text}`);
+      //   await textToSpeechPolly(message.text, fileName);
+      //   await lipSyncMessage(userId, i);
+      //   message.audio = await audioFileToBase64(fileName);
+      //   message.lipsync = await readJsonTranscript(`audios/${userId}_message_${i}.json`);
+
+      //    // Remove audio files after use
+      //     await removeAudioFiles(userId, i);
+      // }
       for (let i = 0; i < messages.length; i++) {
         const message = messages[i];
         const fileName = `audios/${userId}_message_${i}.mp3`;
         console.log(`Converting text to speech for message ${i}: ${message.text}`);
-        await textToSpeechPolly(message.text, fileName);
-        await lipSyncMessage(userId, i);
-        message.audio = await audioFileToBase64(fileName);
-        message.lipsync = await readJsonTranscript(`audios/${userId}_message_${i}.json`);
+      
+        try {
+          // Convert text to speech using Polly
+          await textToSpeechPolly(message.text, fileName);
+        } catch (error) {
+          console.error(`Error converting text to speech for message ${i}:`, error);
+          return res.status(500).send({ error: `Failed to convert text to speech for message ${i}.` });
+        }
+      
+        try {
+          // Perform lip sync on the audio file
+          await lipSyncMessage(userId, i);
+        } catch (error) {
+          console.error(`Error during lip sync for message ${i}:`, error);
+          return res.status(500).send({ error: `Failed to perform lip sync for message ${i}.` });
+        }
+      
+        try {
+          // Convert audio file to Base64
+          message.audio = await audioFileToBase64(fileName);
+        } catch (error) {
+          console.error(`Error converting audio to Base64 for message ${i}:`, error);
+          return res.status(500).send({ error: `Failed to convert audio to Base64 for message ${i}.` });
+        }
+      
+        try {
+          // Read lip sync JSON transcript
+          message.lipsync = await readJsonTranscript(`audios/${userId}_message_${i}.json`);
+        } catch (error) {
+          console.error(`Error reading lipsync JSON for message ${i}:`, error);
+          return res.status(500).send({ error: `Failed to read lipsync JSON for message ${i}.` });
+        }
+      
+        try {
+          // Remove audio files after use
+          await removeAudioFiles(userId, i);
+        } catch (error) {
+          console.error(`Error removing audio files for message ${i}:`, error);
+          return res.status(500).send({ error: `Failed to remove audio files for message ${i}.` });
+        }
       }
+      
 
+      
       console.log("Sending final response to user");
   res.send({ messages });
+
 } catch (error) {
   console.error("Error generating response with API:", error);
 
