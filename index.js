@@ -29,10 +29,14 @@ const port = process.env.PORT;
 // app.use(cors());
 
 app.use(cors({
-  origin: process.env.FRONTEND_URL || "*",  // Allow frontend URL
-  methods: ["GET", "POST"],
-  allowedHeaders: ["Content-Type", "Authorization"],
+  origin: process.env.FRONTEND_URL || "*",  // Allow requests from your frontend URL (or all origins)
+  methods: ["GET", "POST", "OPTIONS"],     // Allow the necessary HTTP methods
+  allowedHeaders: ["Content-Type", "Authorization"],  // Allow specific headers
+  credentials: true,  // If you are using cookies or sessions
+  preflightContinue: false,  // If you want to handle preflight requests manually (optional)
+  optionsSuccessStatus: 204  // Some legacy browsers (like IE) may require this
 }));
+
 
 // In-memory storage for each user's session
 const userSessions = {}; // This will store chat history and session locks per user
@@ -42,7 +46,6 @@ const getUserChatHistory = (userId) => {
   if (!userSessions[userId]) {
     userSessions[userId] = {
       chatHistory: [],
-      sessionLocked: false,
     };
   }
   return userSessions[userId];
