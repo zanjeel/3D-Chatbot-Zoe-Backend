@@ -1,0 +1,25 @@
+{
+  "metadata": {
+    "soundFile": "C:\\Users\\zanje\\Desktop\\Chatbot-Zoe\\Chatbot-Zoe-Backend\\audios\\1738921567586-h5wiqofehhm_message_0.wav",
+    "duration": 2.24
+  },
+  "mouthCues": [
+    { "start": 0.00, "end": 0.01, "value": "X" },
+    { "start": 0.01, "end": 0.06, "value": "B" },
+    { "start": 0.06, "end": 0.17, "value": "C" },
+    { "start": 0.17, "end": 0.26, "value": "E" },
+    { "start": 0.26, "end": 0.32, "value": "A" },
+    { "start": 0.32, "end": 0.38, "value": "B" },
+    { "start": 0.38, "end": 0.46, "value": "A" },
+    { "start": 0.46, "end": 0.68, "value": "C" },
+    { "start": 0.68, "end": 0.89, "value": "B" },
+    { "start": 0.89, "end": 1.28, "value": "X" },
+    { "start": 1.28, "end": 1.33, "value": "B" },
+    { "start": 1.33, "end": 1.37, "value": "H" },
+    { "start": 1.37, "end": 1.58, "value": "B" },
+    { "start": 1.58, "end": 2.07, "value": "C" },
+    { "start": 2.07, "end": 2.15, "value": "A" },
+    { "start": 2.15, "end": 2.23, "value": "B" },
+    { "start": 2.23, "end": 2.24, "value": "X" }
+  ]
+}

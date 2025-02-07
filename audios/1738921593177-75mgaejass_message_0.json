@@ -1,0 +1,33 @@
+{
+  "metadata": {
+    "soundFile": "C:\\Users\\zanje\\Desktop\\Chatbot-Zoe\\Chatbot-Zoe-Backend\\audios\\1738921593177-75mgaejass_message_0.wav",
+    "duration": 3.65
+  },
+  "mouthCues": [
+    { "start": 0.00, "end": 0.04, "value": "X" },
+    { "start": 0.04, "end": 0.10, "value": "B" },
+    { "start": 0.10, "end": 0.16, "value": "E" },
+    { "start": 0.16, "end": 0.44, "value": "F" },
+    { "start": 0.44, "end": 0.61, "value": "B" },
+    { "start": 0.61, "end": 0.77, "value": "C" },
+    { "start": 0.77, "end": 0.85, "value": "A" },
+    { "start": 0.85, "end": 1.18, "value": "B" },
+    { "start": 1.18, "end": 1.52, "value": "X" },
+    { "start": 1.52, "end": 1.57, "value": "B" },
+    { "start": 1.57, "end": 1.69, "value": "E" },
+    { "start": 1.69, "end": 1.76, "value": "A" },
+    { "start": 1.76, "end": 1.95, "value": "B" },
+    { "start": 1.95, "end": 2.02, "value": "C" },
+    { "start": 2.02, "end": 2.16, "value": "B" },
+    { "start": 2.16, "end": 2.23, "value": "C" },
+    { "start": 2.23, "end": 2.31, "value": "A" },
+    { "start": 2.31, "end": 2.51, "value": "B" },
+    { "start": 2.51, "end": 2.86, "value": "X" },
+    { "start": 2.86, "end": 2.90, "value": "B" },
+    { "start": 2.90, "end": 2.98, "value": "A" },
+    { "start": 2.98, "end": 3.12, "value": "C" },
+    { "start": 3.12, "end": 3.24, "value": "A" },
+    { "start": 3.24, "end": 3.64, "value": "B" },
+    { "start": 3.64, "end": 3.65, "value": "X" }
+  ]
+}

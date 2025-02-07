@@ -22,7 +22,7 @@ const pollyClient = new PollyClient({
 
 const app = express();
 app.use(express.json());
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 
 // const port = 3000;
 
@@ -58,27 +58,6 @@ const addToUserChatHistory = (userId, role, message) => {
   }
 };
 
-// Lock and unlock user sessions to prevent overlapping requests
-const lockUserSession = (userId) => {
-  console.log("Locking session for user:", userId); // Added log
-  return new Promise((resolve, reject) => {
-    const userSession = getUserChatHistory(userId);
-    if (userSession.sessionLocked) {
-      console.error("Session already locked for user:", userId); // Log if already locked
-      reject("Session is already in progress");
-    } else {
-      userSession.sessionLocked = true; // Lock the session
-      console.log("Session locked for user:", userId); // Log when session is locked
-      resolve();
-    }
-  });
-};
-
-const unlockUserSession = (userId) => {
-  console.log("Unlocking session for user:", userId); // Added log
-  const userSession = getUserChatHistory(userId);
-  userSession.sessionLocked = false; // Unlock the session
-};
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
