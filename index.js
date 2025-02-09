@@ -376,7 +376,7 @@ app.post("/chat", async (req, res) => {
       
 
       
-  console.log("Sending final response to user", {messages});
+  console.log("Final messages being returned to user:", JSON.stringify(messages, null, 2));
   res.send({ messages });
 
 } catch (error) {
